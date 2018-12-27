@@ -1,11 +1,3 @@
-const _=require('lodash');
-var {User}=require('./model/docUserLogin');
-const {ObjectID} = require('mongodb');
-var {mongoose} = require('./connect/mongoose');
-
-
-
-
 const {express,bodyParser,...Imports}=require("./imports/imports");
 
 const app = express();
@@ -17,11 +9,10 @@ app.get("/",(req,res)=>{
     res.send("Root called");
 });
 
-app.post("/user/login",(req,res)=>{
-    var body=_.pick(req.body,['username','password']);
-    let newUser=Imports.User.addUser(body);
-    res.send(JSON.stringify(newUser));
+app.post("/user/register",(req,res)=>{
+    let user=Imports.lodash.pick(req.body,['username','password']);
+
+    Imports.User.addUser(user).then(()=>res.send()).catch(()=>res.status(404).send());
 });
 
-app.listen(2000,()=>console.log("Node API port is up")
-);
+app.listen(2000,()=>console.log("Node API port is up"));
