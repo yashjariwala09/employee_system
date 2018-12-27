@@ -25,26 +25,3 @@ app.post("/user/login",(req,res)=>{
 
 app.listen(2000,()=>console.log("Node API port is up")
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
