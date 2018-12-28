@@ -27,9 +27,7 @@ UserLoginSchema.methods.genrateAuthToken=function(){
     var token = jwt.sign({_id:user._id.toHexString()},'abc123').toString();
     user.token=token;
 
-    return user.save().then(() => {
-        return token;
-    });
+    return user.save().then(() =>token);
 }
 
 
