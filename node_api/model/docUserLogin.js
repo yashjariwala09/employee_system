@@ -15,11 +15,20 @@ var UserLoginSchema=new mongoose.Schema({
 		require:true,
 		minlength:6
     },
+    isActive:{
+        type:Boolean,
+        required:true,
+        default:false
+    },
     token:{
             type:String,
             default:null
         }
-    }
+    },
+
+{
+    timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
+}
 );
 
 UserLoginSchema.methods.genrateAuthToken=function(){
@@ -33,19 +42,19 @@ UserLoginSchema.methods.genrateAuthToken=function(){
 }
 
 
-UserLoginSchema.pre('save',function(next){
-	var user = this;
-	if(user.isModified('password')){
-		bcrypt.genSalt(10,(err,salt)=>{
-			bcrypt.hash(user.password,salt,(err,hash)=>{
-                user.password=hash;
-                next();
-			});
-        });
-	}else{
-		next();
-	}
-});
+// UserLoginSchema.pre('save',function(next){
+// 	var user = this;
+// 	if(user.isModified('password')){
+// 		bcrypt.genSalt(10,(err,salt)=>{
+// 			bcrypt.hash(user.password,salt,(err,hash)=>{
+//                 user.password=hash;
+//                 next();
+// 			});
+//         });
+// 	}else{
+// 		next();
+// 	}
+// });
 
 var User =mongoose.model('userLogin',UserLoginSchema);
 module.exports={User};
